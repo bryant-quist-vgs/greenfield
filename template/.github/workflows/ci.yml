@@ -1,0 +1,28 @@
+# Runs `make commit`, the gate that is run locally, and no other gate: a gate cannot exist
+# here and not there. This workflow has not been verified by a run. It fails until the
+# toolchain change (backlog B001) wires the language gates; that change adds the language
+# setup step below and makes the first run pass.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  commit-gate:
+    runs-on: ubuntu-latest
+    steps:
+      # Full history and tags: reviews-lint checks that every reviewed commit exists.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # Records origin's default branch in the clone: the change-log gate takes it as the upstream.
+      - run: git remote set-head origin --auto
+      - uses: astral-sh/setup-uv@v6
+      # Language and runtime setup goes here (backlog B001).
+      - run: make install-linters
+      - run: make commit

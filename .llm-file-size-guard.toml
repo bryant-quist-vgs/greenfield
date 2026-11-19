@@ -1,0 +1,17 @@
+# Size policy for greenfield and for everything under template/, which is placed in new
+# repositories and checked there against the same limits (template/.llm-file-size-guard.toml).
+#   warning  500 lines /  5,000 words / 40,000 characters
+#   error    800 lines /  8,000 words / 64,000 characters
+# A template file that warns here warns in every new repository, and a greenfield-owned
+# file cannot be edited there: keep every template file under the warning level.
+
+[thresholds]
+warn_lines = 500
+fail_lines = 800
+words_per_line = 10
+chars_per_line = 80
+growth_lines = 100
+defer_days = 7
+
+[tracking]
+state_path = ".llm-size-guard-state.json"

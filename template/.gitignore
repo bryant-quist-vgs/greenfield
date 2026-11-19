@@ -1,0 +1,68 @@
+# Ignore rules for @@PROJECT_NAME@@.
+#
+# Tracked, and never to be ignored: everything under docs/, backlog/, reviews/, tools/,
+# and .agent_notes/; lockfiles; .llm-size-guard-state.json. Directory rules are anchored
+# with a leading slash so that they cannot swallow a source directory of the same name.
+
+# ---------------------------------------------------------------------------
+# Language and toolchain: virtual environments, dependency and build caches,
+# test and coverage output. The toolchain change (backlog B001) adds these rules.
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# Throwaway files of the Makefile gates, and scratch output of local commands.
+# ---------------------------------------------------------------------------
+/.gate-scratch/
+/local/
+# The temporary file tools/change_log.sh writes the generated list through.
+/docs/change_log.md.tmp.*
+
+# ---------------------------------------------------------------------------
+# Local secrets and environment files. Ignoring a file is not a security
+# control: never place credentials in this repository in the first place.
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.key
+/.netrc
+
+# ---------------------------------------------------------------------------
+# macOS
+# ---------------------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+.apdisk
+*.icloud
+
+# ---------------------------------------------------------------------------
+# Editors
+# ---------------------------------------------------------------------------
+/.idea/
+/.vscode/
+*.swp
+*.swo
+*~
+.\#*
+\#*\#
+
+# ---------------------------------------------------------------------------
+# Agent tooling: local, per-user state only. Shared agent files (AGENTS.md,
+# CLAUDE.md, .agent_notes/) are tracked.
+# ---------------------------------------------------------------------------
+/.claude/settings.local.json
+/.claude/worktrees/
+/.claude/.cc-writes/
